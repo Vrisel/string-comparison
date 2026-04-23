@@ -1,0 +1,49 @@
+table {
+	margin-block-end: 5px
+}
+th, td {
+	/*min-width: 14px;*/
+	text-align: center;
+}
+.braille {
+	font-family: SilwelBrl, HSBRL01, 	SimBraille, Braille, monospace;
+}
+#resultArea:has(>*) {
+	/*margin: 1ch;*/
+	padding: 1ch;
+	border: thick double black;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+}
+.row {
+	display: flex;
+	/*flex-grow: row wrap;*/
+	align-items: flex-start;
+	padding-block-end: 0.1ch;
+	border-block-end: 1px solid gray;
+	margin-block-end: 0.1ch;
+}
+table {
+	border: 1px solid black;
+	width: 1ch;
+	text-align: center;
+}
+table, td {
+	padding: 0;
+}
+/*.row table:not(table + table) {
+	margin-inline-start: 0.1ch;
+}*/
+.row table:not(:has(+table)) {
+	margin-inline-end: 0.1ch;
+}
+.a, .insertion {
+	background-color: rgba(0,0,0,0.2);
+}
+.s, .mismatch {
+	color: rgba(255,0,0,1);
+}
+.d, .deletion {
+	background-color: rgba(255,0,0,0.2);
+}
