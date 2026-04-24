@@ -6,9 +6,10 @@ th, td {
 	text-align: center;
 }
 .braille {
-	font-family: SilwelBrl, HSBRL01, 	SimBraille, Braille, monospace;
+	font-family: SilwelBrl, HSBRL01, SimBraille, Braille, monospace;
 }
 #resultArea:has(>*) {
+	max-width: 46.5ch;
 	/*margin: 1ch;*/
 	padding: 1ch;
 	border: thick double black;
