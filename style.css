@@ -1,50 +1,76 @@
-table {
-	margin-block-end: 5px
+form {
+  margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  align-content: space-between;
+  align-items: stretch;
+  max-width: 32em;
 }
-th, td {
-	/*min-width: 14px;*/
-	text-align: center;
+textarea {
+  resize: vertical;
+  width: 31em;
 }
 .braille {
-	font-family: SilwelBrl, HSBRL01, SimBraille, Braille, monospace;
+  font-family: SilwelBrl, HSBRL01, SimBraille, Braille, monospace;
 }
-#resultArea:has(>*) {
-	max-width: 46.5ch;
-	/*margin: 1ch;*/
-	padding: 1ch;
-	border: thick double black;
-	display: flex;
-	flex-direction: column;
-	align-items: flex-start;
+
+.float-left-container > *:not(legend):not(:has(+ table)) {
+  float: left;
+  margin-inline-end: 1em;
+}
+.float-left-container::after {
+  content: '';
+  display: block;
+  clear: both;
+}
+
+#resultArea:has(> *) {
+  max-width: 36em;
+  margin-inline: auto;
+  padding: 1em;
+  border: thick double black;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 .row {
-	display: flex;
-	/*flex-grow: row wrap;*/
-	align-items: flex-start;
-	padding-block-end: 0.1ch;
-	border-block-end: 1px solid gray;
-	margin-block-end: 0.1ch;
+  display: flex;
+  align-items: flex-end;
+  padding-block-end: 0.1em;
+  border-block-end: 1px solid gray;
+  margin-block-end: 0.5em;
 }
 table {
-	border: 1px solid black;
-	width: 1ch;
-	text-align: center;
+  /*border: 1px solid black;*/
+  border-spacing: 0;
+  text-align: center;
 }
-table, td {
-	padding: 0;
+table,
+tr,
+td {
+  padding: 0;
+}
+td {
+  text-align: center;
+  width: 1em;
 }
 /*.row table:not(table + table) {
-	margin-inline-start: 0.1ch;
+  margin-inline-start: 0.1em;
 }*/
-.row table:not(:has(+table)) {
-	margin-inline-end: 0.1ch;
+.row table:not(:has(+ table)) {
+  margin-inline-end: 0.1em;
 }
-.a, .insertion {
-	background-color: rgba(0,0,0,0.2);
+.row span {
+  /*padding-block-start: 0.2em;*/
+  display: inline-block;
+  width: 1em;
 }
-.s, .mismatch {
-	color: rgba(255,0,0,1);
+.insertion,
+.mismatch,
+.deletion {
+  background-color: rgba(0, 0, 0, 0.2);
+  color: rgba(255, 0, 0, 1);
 }
-.d, .deletion {
-	background-color: rgba(255,0,0,0.2);
+.enter {
+  background-color: rgba(255, 0, 0, 0.2);
 }

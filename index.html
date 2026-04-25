@@ -1,34 +1,85 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ko">
-<head>
-    <meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>title</title>
-    <link rel="stylesheet" href="./style.css">
-</head>
-<body>
-<form style="width:90vw; display:flex;" onsubmit="return 비교(event);">
-	<div>
-		<fieldset>
-			<legend>
-				모범답안
-			</legend>
-			<textarea class="braille" id="correctArea" cols="32" rows="5"></textarea>
-		</fieldset>
-		<fieldset>
-			<legend>
-				입력답안
-			</legend>
-			<textarea class="braille" id="inputArea" cols="32" rows="5"></textarea>
-		</fieldset>
-	</div>
-	<button type="submit">비교</button>
-</form>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>문자열 비교</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <form onsubmit="return 비교(event);">
+      <fieldset class="float-left-container">
+        <legend>옵션</legend>
+        <div>
+          <div>
+            <input
+              type="radio"
+              name="options"
+              id="optionToBana"
+              value="toBana"
+              checked
+            />
+            <label for="optionToBana"
+              ><strong>BANA코드</strong>(←유니코드)로 비교</label
+            >
+          </div>
+          <div>
+            <input
+              type="radio"
+              name="options"
+              id="optionToUnicode"
+              value="toUnicode"
+            />
+            <label for="optionToUnicode"
+              >(BANA코드→)<strong>유니코드</strong>로 비교</label
+            >
+          </div>
+        </div>
+        <div>
+          <input type="radio" name="options" id="optionNone" value="none" />
+          <label for="optionNone">변환하지 않음</label>
+        </div>
+      </fieldset>
+      <div style="display: flex">
+        <div>
+          <fieldset>
+            <legend>모범답안</legend>
+            <textarea
+              class="braille"
+              id="correctArea"
+              name="correctArea"
+              rows="5"
+            ></textarea>
+          </fieldset>
+          <fieldset>
+            <legend>입력답안</legend>
+            <textarea
+              class="braille"
+              id="inputArea"
+              name="inputArea"
+              rows="5"
+            ></textarea>
+          </fieldset>
+        </div>
+        <button style="flex-grow: 1" type="submit">비교</button>
+      </div>
+    </form>
 
-<div id="resultArea" class="braille"></div>
+    <div id="resultArea" class="braille"></div>
 
-<script src="./bana.js"></script>
-<script src="./needleman-wunsch.js"></script>
-<script src="./script.js"></script>
-</body>
+    <script src="./bana.js"></script>
+    <script src="./needleman-wunsch.js"></script>
+    <script src="./script.js"></script>
+    <script>
+      const form = document.forms[0];
+      form.addEventListener('change', (event) => {
+        if (event.target.name === 'options') {
+          const selectedOption = form.elements['options'].value;
+          correctArea.classList.toggle('braille', selectedOption === 'toBana');
+          inputArea.classList.toggle('braille', selectedOption === 'toBana');
+          resultArea.classList.toggle('braille', selectedOption === 'toBana');
+        }
+      });
+    </script>
+  </body>
 </html>
