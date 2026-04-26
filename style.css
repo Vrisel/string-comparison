@@ -1,5 +1,44 @@
+:root {
+  --bg-color: ivory;
+  --text-color: black;
+  --primary-color: lightgoldenrodyellow;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-color: #222;
+    --text-color: ivory;
+    --primary-color: darkgray;
+  }
+}
+.bg-color-primary {
+  background-color: var(--primary-color) !important;
+}
+.text-color {
+  color: var(--text-color) !important;
+}
+body:has(main) {
+  margin: inherit;
+  font-family: inherit;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+main {
+  margin-inline: auto;
+  max-width: 34em;
+}
+.text-center {
+  text-align: center;
+}
+details {
+  max-width: auto;
+  padding: 0.2em;
+}
+.border-1 {
+  border: 1px solid var(--text-color);
+}
 form {
   margin-inline: auto;
+  margin-block: 1em;
   display: flex;
   flex-direction: column;
   align-content: space-between;
@@ -9,9 +48,10 @@ form {
 textarea {
   resize: vertical;
   width: 31em;
+  background-color: var(--primary-color);
 }
 .braille {
-  font-family: SilwelBrl, HSBRL01, SimBraille, Braille, monospace;
+  font-family: SilwelBrl, SimBraille, HSBRL01, Braille, monospace;
 }
 
 .float-left-container > *:not(legend):not(:has(+ table)) {
@@ -24,14 +64,24 @@ textarea {
   clear: both;
 }
 
-#resultArea:has(> *) {
+figure:has(> #resultArea) {
   max-width: 36em;
+  min-height: 7em;
+  margin-block-start: 1em;
   margin-inline: auto;
   padding: 1em;
-  border: thick double black;
+  border: thick double var(--text-color);
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+}
+figure:has(#resultArea) figcaption {
+  width: 100%;
+  text-align: center;
+  font-weight: bold;
+  font-size: large;
+  padding-block-end: 0.5em;
+  border-block-end: 1px dashed var(--text-color);
 }
 .row {
   display: flex;
@@ -53,6 +103,7 @@ td {
 td {
   text-align: center;
   width: 1em;
+  height: 1.5em;
 }
 /*.row table:not(table + table) {
   margin-inline-start: 0.1em;
@@ -68,9 +119,31 @@ td {
 .insertion,
 .mismatch,
 .deletion {
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: rgba(255, 0, 0, 0.2);
   color: rgba(255, 0, 0, 1);
 }
 .enter {
-  background-color: rgba(255, 0, 0, 0.2);
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+footer {
+  margin-block-start: 2em;
+  border-block-start: 1px solid var(--text-color);
+  padding-block-start: 1em;
+  text-align: center;
+}
+div.github-pinner {
+  display: inline-block;
+  background-color: var(--primary-color);
+}
+.github-pinner #gp-container-profile a.gp-btn {
+  background: var(--text-color);
+  color: var(--bg-color);
+  border-color: var(--bg-color);
+
+  &:hover {
+    background: var(--bg-color);
+    color: var(--text-color);
+    border-color: var(--text-color);
+  }
 }

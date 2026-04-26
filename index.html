@@ -5,79 +5,168 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>문자열 비교</title>
     <link rel="stylesheet" href="./style.css" />
+    <link
+      rel="stylesheet"
+      href="https://alexgama11.github.io/GitGlue/css/gitstyle.css"
+    />
   </head>
   <body>
-    <form onsubmit="return 비교(event);">
-      <fieldset class="float-left-container">
-        <legend>옵션</legend>
-        <div>
-          <div>
-            <input
-              type="radio"
-              name="options"
-              id="optionToBana"
-              value="toBana"
-              checked
-            />
-            <label for="optionToBana"
-              ><strong>BANA코드</strong>(←유니코드)로 비교</label
-            >
+    <main>
+      <header role="banner">
+        <h1 class="text-center">문자열 비교</h1>
+        <details class="border-1" name="explanation">
+          <summary class="text-center">간단 설명</summary>
+          <p>
+            두 개의 문자열을 비교합니다.<br />
+            모범답안을 기준으로, 입력답안에 어떤 오류가 있는지를 나타냅니다.
+          </p>
+          <!--<p>
+        점역&middot;교정사 채점 기준을 반영하여, 줄바꿈 차이는 &minus;0점, 공백
+        차이는 &minus;1점, 그 외의 문자 차이는 &minus;2점으로 계산합니다만, 실제
+        채점 방식과 상이한 면이 있으므로 참고만 하시는 것이 좋겠습니다.
+      </p>-->
+          <p>
+            <a
+              href="https://en.wikipedia.org/wiki/Needleman–Wunsch_algorithm"
+              target="_blank"
+              rel="noopener noreferrer"
+              >Needleman-Wunsch 알고리즘</a
+            >을 사용합니다.
+          </p>
+        </details>
+        <details class="border-1" name="explanation">
+          <summary class="text-center">옵션 설명</summary>
+          <dl>
+            <dt>점자</dt>
+            <dd>
+              <dfn title="점자 형식 .brf 등에 사용됨">BANA 코드</dfn>를 점자
+              유니코드로 변환하여 비교
+            </dd>
+            <!-- <dt><strong>BANA코드</strong>(&larr;&nbsp;유니코드)로 비교</dt>
+            <dd>
+              <p style="display: inline">
+                점자 형식 <code>.brf</code> 등에 사용되는 <dfn>BANA 코드</dfn>
+              </p>
+              기준으로 비교합니다.<br />점자
+              유니코드(&lsquo;&#x2800;&rsquo;&nbsp;U+2800 ~
+              &lsquo;&#x283F;&rsquo;&nbsp;U+283F)가 있다면 BANA 코드로 변환하고,
+              점형이 같은 코드는 한 쪽으로
+              치환합니다(대문자&nbsp;&rarr;&nbsp;소문자,
+              &grave;&nbsp;&rarr;&nbsp;&commat; 등).<br />
+              변환할 수 없는 문자는 그대로 둡니다.
+            </dd>
+            <dt>(BANA코드&nbsp;&rarr;)<strong>유니코드</strong>로 비교</dt>
+            <dd>
+              점자 유니코드(&lsquo;&#x2800;&rsquo;&nbsp;U+2800 ~
+              &lsquo;&#x283F;&rsquo;&nbsp;U+283F) 기준으로 비교합니다.<br />BANA
+              코드가 있다면 유니코드로 변환하고, 변환할 수 없는 문자는
+              &lsquo;&#xFFFD;&rsquo;(U+FFFD)가 됩니다.
+            </dd>
+            <dt>변환하지 않음</dt> -->
+            <dt>묵자</dt>
+            <dd>
+              아무런 변환을 가하지 않고, 입력된 그대로 비교<!-- 합니다. -->
+            </dd>
+          </dl>
+        </details>
+      </header>
+      <form onsubmit="return 비교(event);">
+        <fieldset>
+          <legend>옵션</legend>
+          <div class="float-left-container">
+            <div>
+              <div>
+                <input
+                  type="radio"
+                  name="options"
+                  id="optionToBana"
+                  value="toBana"
+                  checked
+                />
+                <label for="optionToBana"
+                  >점자<!-- <strong>BANA코드</strong>(&larr;&nbsp;유니코드)로 비교 --></label
+                >
+              </div>
+              <!-- <div>
+                <input
+                  type="radio"
+                  name="options"
+                  id="optionToUnicode"
+                  value="toUnicode"
+                />
+                <label for="optionToUnicode"
+                  >(BANA코드&nbsp;&rarr;)<strong>유니코드</strong>로 비교</label
+                >
+              </div> -->
+            </div>
+            <div>
+              <input type="radio" name="options" id="optionNone" value="none" />
+              <label for="optionNone">묵자<!-- 변환하지 않음 --></label>
+            </div>
           </div>
+        </fieldset>
+        <div style="display: flex">
           <div>
-            <input
-              type="radio"
-              name="options"
-              id="optionToUnicode"
-              value="toUnicode"
-            />
-            <label for="optionToUnicode"
-              >(BANA코드→)<strong>유니코드</strong>로 비교</label
-            >
+            <fieldset>
+              <legend>모범답안</legend>
+              <textarea
+                class="braille bg-color-primary"
+                id="correctArea"
+                name="correctArea"
+                rows="5"
+              ></textarea>
+            </fieldset>
+            <fieldset>
+              <legend>입력답안</legend>
+              <textarea
+                class="braille bg-color-primary"
+                id="inputArea"
+                name="inputArea"
+                rows="5"
+              ></textarea>
+            </fieldset>
           </div>
+          <button
+            class="bg-color-primary text-color"
+            style="flex-grow: 1"
+            type="submit"
+          >
+            비교
+          </button>
         </div>
-        <div>
-          <input type="radio" name="options" id="optionNone" value="none" />
-          <label for="optionNone">변환하지 않음</label>
-        </div>
-      </fieldset>
-      <div style="display: flex">
-        <div>
-          <fieldset>
-            <legend>모범답안</legend>
-            <textarea
-              class="braille"
-              id="correctArea"
-              name="correctArea"
-              rows="5"
-            ></textarea>
-          </fieldset>
-          <fieldset>
-            <legend>입력답안</legend>
-            <textarea
-              class="braille"
-              id="inputArea"
-              name="inputArea"
-              rows="5"
-            ></textarea>
-          </fieldset>
-        </div>
-        <button style="flex-grow: 1" type="submit">비교</button>
-      </div>
-    </form>
+      </form>
 
-    <div id="resultArea" class="braille"></div>
+      <figure class="bg-color-primary">
+        <figcaption>비교 결과</figcaption>
+        <div id="resultArea"></div>
+      </figure>
+    </main>
+    <footer role="contentinfo">
+      <div
+        data="https://github.com/Vrisel"
+        class="github-pinner flat"
+        style="visibility: hidden"
+      ></div>
+      <div
+        data="https://github.com/Vrisel/string-comparison"
+        class="github-pinner"
+        style="visibility: hidden"
+      ></div>
+    </footer>
 
     <script src="./bana.js"></script>
     <script src="./needleman-wunsch.js"></script>
     <script src="./script.js"></script>
+
+    <script src="https://alexgama11.github.io/GitGlue/GitHubPinner.js"></script>
     <script>
       const form = document.forms[0];
       form.addEventListener('change', (event) => {
         if (event.target.name === 'options') {
           const selectedOption = form.elements['options'].value;
-          correctArea.classList.toggle('braille', selectedOption === 'toBana');
-          inputArea.classList.toggle('braille', selectedOption === 'toBana');
-          resultArea.classList.toggle('braille', selectedOption === 'toBana');
+          correctArea.classList.toggle('braille', selectedOption !== 'none');
+          inputArea.classList.toggle('braille', selectedOption !== 'none');
+          //resultArea.classList.toggle('braille', selectedOption !== 'none');
         }
       });
     </script>
